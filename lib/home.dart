@@ -49,7 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   loadModel() async {
     await Tflite.loadModel(
-        model: "assets/model_unquant.tflite", labels: "assets/labels.txt");
+      model: "assets/model_unquant.tflite",
+      labels: "assets/labels.txt",
+    );
   }
 
   @override
@@ -83,9 +85,10 @@ class _HomeScreenState extends State<HomeScreen> {
               child: _loading
                   ? Container(
                       width: 200,
+                      height: 200,
                       child: Column(
                         children: [
-                          Image.asset("assets/cat.png"),
+                          Image.asset("assets/chair.png"),
                           SizedBox(
                             height: 50.0,
                           )
