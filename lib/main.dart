@@ -11,10 +11,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'NHOP CHAIRS CLASSFIER',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.dark(),
       home: HomeScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

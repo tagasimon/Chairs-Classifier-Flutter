@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:tflite/tflite.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -72,97 +73,54 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Title"),
+        title: Text("Portable Vs All Size "),
         actions: [
-          IconButton(icon: Icon(Icons.menu), onPressed: () {}),
+          IconButton(icon: Icon(Icons.camera_alt), onPressed: pickImageCamera),
+          IconButton(
+              icon: Icon(Icons.attach_file_outlined),
+              onPressed: pickImageGallery),
         ],
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Text("Chairs Classifier CNN"),
-            Center(
-              child: _loading
-                  ? Container(
-                      width: 200,
-                      height: 200,
-                      child: Column(
-                        children: [
-                          Image.asset("assets/chair.png"),
-                          SizedBox(
-                            height: 50.0,
-                          )
-                        ],
+      body: Center(
+        child: Container(
+          padding: EdgeInsets.all(10.0),
+          child: _loading
+              ? AnimatedTextKit(
+                  animatedTexts: [
+                    TypewriterAnimatedText(
+                      'Select an Image....',
+                      textStyle: const TextStyle(
+                        fontSize: 32.0,
+                        fontWeight: FontWeight.bold,
                       ),
-                    )
-                  : Container(
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 250,
-                            child: Image.file(_image),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          _output != null
-                              ? Text(
-                                  "${_output[0]}",
-                                  style: TextStyle(
-                                      color: Colors.purple, fontSize: 20),
-                                )
-                              : Container()
-                        ],
-                      ),
+                      speed: const Duration(milliseconds: 100),
                     ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      pickImageCamera();
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width - 100,
-                      alignment: Alignment.center,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 24, vertical: 17),
-                      decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(6)),
-                      child: Text(
-                        "Take a Photo",
-                        style: TextStyle(color: Colors.white),
+                  ],
+                  totalRepeatCount: 4,
+                  pause: const Duration(milliseconds: 1000),
+                  displayFullTextOnTap: true,
+                  stopPauseOnTap: true,
+                )
+              : Container(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 250,
+                        child: Image.file(_image),
                       ),
-                    ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      _output != null
+                          ? Text(
+                              "${_output[0]["label"]} 😉",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 30),
+                            )
+                          : Container()
+                    ],
                   ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      pickImageGallery();
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width - 100,
-                      alignment: Alignment.center,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 24, vertical: 17),
-                      decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(6)),
-                      child: Text(
-                        "Camera Roll",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
+                ),
         ),
       ),
     );
