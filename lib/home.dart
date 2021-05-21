@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ? AnimatedTextKit(
                   animatedTexts: [
                     TypewriterAnimatedText(
-                      'Select an Image....',
+                      'Pick an Image....',
                       textStyle: const TextStyle(
                         fontSize: 32.0,
                         fontWeight: FontWeight.bold,
